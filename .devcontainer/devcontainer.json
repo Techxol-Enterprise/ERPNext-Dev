@@ -1,14 +1,19 @@
 {
   "name": "ERPNext Development",
-  "dockerFile": "Dockerfile",
-  "forwardPorts": [8000, 3306],
-  "postCreateCommand": "bench init erpnext-bench --frappe-branch version-15 && cd erpnext-bench && bench new-site avila && bench get-app erpnext --branch version-15 && bench --site avila install-app erpnext",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash"
   },
-  "extensions": [
-    "ms-python.python",
-    "dbaeumer.vscode-eslint",
-    "hookyqr.beautify"
-  ]
+  "postCreateCommand": [
+    "sudo apt update",
+    "sudo apt install -y python3 python3-pip python3-dev libmysqlclient-dev libssl-dev mariadb-server git",
+    "curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -",
+    "sudo apt install -y nodejs",
+    "sudo apt install -y redis-server",
+    "pip install --upgrade pip",
+    "pip install frappe-bench",
+    "bench init --frappe-branch version-15 frappe-bench"
+  ],
+  "forwardPorts": [8000, 9000],
+  "remoteUser": "vscode"
 }
