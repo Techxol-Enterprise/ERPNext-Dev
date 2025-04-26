@@ -1,0 +1,14 @@
+{
+  "name": "ERPNext Development",
+  "dockerFile": "Dockerfile",
+  "forwardPorts": [8000, 3306],
+  "postCreateCommand": "bench init erpnext-bench --frappe-branch version-15 && cd erpnext-bench && bench new-site avila && bench get-app erpnext --branch version-15 && bench --site avila install-app erpnext",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [
+    "ms-python.python",
+    "dbaeumer.vscode-eslint",
+    "hookyqr.beautify"
+  ]
+}
